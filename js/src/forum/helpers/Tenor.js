@@ -1,5 +1,5 @@
 export function initialize(apiKey, rating) {
-    this.baseUrl = 'https://g.tenor.com/v1';
+    this.baseUrl = 'https://tenor.googleapis.com/v2';
     this.defaultLimit = 10;
 
     this.apiKey = apiKey;
@@ -26,7 +26,7 @@ export async function getTrendingTerms() {
 
 export async function getTrendingGIFs(pos, limit) {
     var obj;
-    var url = `${this.baseUrl}/trending?key=${this.apiKey}&contentfilter=${this.rating}&media_filter=minimal&limit=${
+    var url = `${this.baseUrl}/featured?key=${this.apiKey}&contentfilter=${this.rating}&media_filter=minimal&limit=${
         limit || this.defaultLimit
     }${pos ? `&pos=${pos}` : ''}`;
 
@@ -72,7 +72,7 @@ export async function getGIFs(query, pos, limit) {
 
 export async function getGIFsByIDs(ids) {
     var gifs;
-    var url = `${this.baseUrl}/gifs?key=${this.apiKey}&ids=${ids}&media_filter=minimal`;
+    var url = `${this.baseUrl}/posts?key=${this.apiKey}&id=${ids}&media_filter=minimal`;
 
     await fetch(url)
         .then((response) => response.json())
@@ -83,11 +83,13 @@ export async function getGIFsByIDs(ids) {
     return gifs;
 }
 
-export function extractGIF(gif) {
+export function extractGIF(gif) { 
+    
     return {
         id: gif.id,
         title: gif.title,
-        url: gif.media[0].gif.url
+        // url: gif.media[0].gif.url
+        url: gif.media_formats.gif.url
     };
 }
 

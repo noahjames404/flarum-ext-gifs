@@ -351,7 +351,7 @@ export default class GIFModal extends Modal {
 
                 // For the Tenor API, it is required to register the shared GIF
                 if (this.engine === ENGINE_TENOR) {
-                    var url = `https://g.tenor.com/v1/registershare?&key=${this.apiKey}${
+                    var url = `https://tenor.googleapis.com/v2/registershare?&key=${this.apiKey}${
                         this.query() != '' ? `&q=${this.query()}` : ''
                     }&id=${id}`;
                     fetch(url);
